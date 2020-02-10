@@ -417,7 +417,7 @@
      #+RESULTS[8c54688637c2b49606e64a51c550637c799a95f8]: suspensiones
      [[file:suspensiones.png]]
 
-** 
+** Complementos de ciclos
 
    - Los *complementos* de los ciclos de \(n\) vértices, para \(n\geq
      8\), también son gráficas expansivas, por lo tanto, divergentes.
