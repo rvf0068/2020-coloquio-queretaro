@@ -8,9 +8,6 @@
 #+latex: \SetVertexNotLabeledSmall
 #+latex: \tikzstyle{EdgeStyle}=[color=white, line width=0.5pt, double=black, double distance=1pt]
 
-#+latex_header: \usepackage[mathrm=sym]{unicode-math}
-#+latex_header: \setmathfont{Fira Math}
-
 * El operador de clanes en gráficas
 
 ** Gráficas
