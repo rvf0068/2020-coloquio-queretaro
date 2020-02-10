@@ -488,5 +488,4 @@
 # org-beamer-outline-frame-title: "Esbozo"
 # eval: (org-babel-lob-ingest "./options.org")
 # eval: (org-sbe maketitle-filter)
-# eval: (add-to-list 'org-export-filter-final-output-functions 'my-beamer-maketitle-replacement)
 # End:
