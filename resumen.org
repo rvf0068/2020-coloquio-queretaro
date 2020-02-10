@@ -1,0 +1,14 @@
+#+title: Gráficas de clanes de complementos de gráficas regulares
+
+Dada una gráfica simple finita $G$, su gráfica de clanes $K(G)$ es la
+gráfica de intersección de las subgráficas completas maximales de
+$G$. Definimos la sucesión de gráficas iteradas de clanes de \(G\)
+como: \(K^{0}(G)=G\), \(K^{n}(G)=K(K^{n-1}(G))\) si \(n>1\). Decimos
+que \(G\) es convergente si la sucesión de gráficas iteradas de clanes
+contiene una cantidad finita de gráficas salvo isomorfismo. Si \(G\)
+no es convergente, decimos que es convergente.
+
+En esta plática daremos razones para plantear la siguiente conjetura:
+Para cada \(n>0\) existe \(M\) tal que si \(G\) es una gráfica
+\(n\)-regular y tiene al menos \(M\) vértices, entonces el complemento
+\(\overline{G}\) es divergente.

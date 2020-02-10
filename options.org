@@ -1,0 +1,63 @@
+# FORMATO PARA PRESENTACIÓN
+#+latex_class: beamer
+#+startup: beamer
+# #+latex_class_options: [spanish, presentation, aspectratio=169]
+#+latex_class_options: [spanish, presentation]
+
+# FORMATO PARA ARTÍCULO
+# #+latex_class: article
+# #+latex_header: \usepackage{beamerarticle}
+
+# FORMATO PARA HANDOUT
+# #+latex_class_options: [spanish, handout]
+# #+latex_header: \usepackage{pgfpages}
+# #+latex_header: \pgfpagesuselayout{4 on 1}[letterpaper,landscape]
+
+#+options: H:2 tags:nil toc:nil ':t
+#+language: es
+
+# #+beamer_header: \usepackage[red]{beamertheme-light}
+# #+beamer_theme: naked
+#+beamer_theme: focus
+
+#+beamer_header: \beamerdefaultoverlayspecification{<+->}
+#+beamer_header: \languagepath{spanish}
+
+# #+latex_header: \usepackage{newtxsf}
+# #+latex_header: \usepackage{eulervm}
+# #+latex_header: \usepackage{arev}
+# #+latex_header: \usefonttheme{professionalfonts}
+#+latex_header: \usepackage{tikz}
+#+latex_header: \usepackage{tkz-berge}
+#+latex_header: \usepackage{tkz-berge-add}
+#+latex_header: \usepackage[spanish, mexico, es-noshorthands]{babel}
+
+#+latex_header: % remove space between margin and lists
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setitemize{label=\usebeamerfont*{itemize item}%
+#+latex_header:   \usebeamercolor[fg]{itemize item}
+#+latex_header:   \usebeamertemplate{itemize item}}
+#+latex_header: \setlist{leftmargin=*,labelindent=0cm}
+#+latex_header: \setenumerate[1]{%
+#+latex_header:   label=\protect\usebeamerfont{enumerate item}%
+#+latex_header:         \protect\usebeamercolor[fg]{enumerate item}%
+#+latex_header:         \insertenumlabel.}
+
+#+property: header-args:latex :imagemagick t :iminoptions -density 300 -resize 400
+#+property: header-args:latex+ :packages '(("" "tikz") ("" "tkz-berge") ("" "tkz-berge-add")) :border 1pt
+#+property: header-args:latex+ :results raw file :cache yes
+
+#+name: maketitle-filter
+#+begin_src emacs-lisp :exports none
+(defun my-beamer-maketitle-replacement (contents backend info)
+  (when (eq backend 'beamer)
+    (replace-regexp-in-string
+     "\\\\maketitle"
+     "\\\\begin{frame}\\\\maketitle\\\\end{frame}"
+     contents)))
+
+(make-variable-buffer-local 'org-export-filter-final-output-functions)
+
+(add-to-list 'org-export-filter-final-output-functions
+	     'my-beamer-maketitle-replacement)
+#+end_src

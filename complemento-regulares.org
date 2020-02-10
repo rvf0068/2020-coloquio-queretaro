@@ -1,0 +1,492 @@
+#+macro: newline @@latex:\\[0.2em]@@ @@html:<br>@@
+
+#+title: Gráficas de clanes{{{newline}}} de complementos{{{newline}}} de gráficas regulares
+#+author: Rafael Villarroel Flores, UAEH
+#+date: Coloquio VNL
+#+setupfile: options.org
+
+#+latex: \SetVertexNotLabeledSmall
+#+latex: \tikzstyle{EdgeStyle}=[color=white, line width=0.5pt, double=black, double distance=1pt]
+
+* El operador de clanes en gráficas
+
+** Gráficas
+
+   - Nosotros consideramos solamente gráficas finitas y simples (no
+     dirigidas, sin lazos, sin aristas múltiples).
+   - La cantidad de vértices de la gráfica \(G\) se llama el *orden*
+     de \(G\) y lo denotamos \(|G|\).
+
+** Completas
+
+   Una *completa* de una gráfica es un conjunto de vértices mutuamente
+   adyacentes.
+   
+   #+name: completas
+   #+header: :file (by-backend (latex "completas.tikz") (beamer "completas.tikz") (t "completas.png"))
+   #+begin_src latex
+\begin{tikzpicture}
+  \pgfmathsetmacro{\edgel}{2}
+  \pgfmathsetmacro{\rad}{\edgel/sqrt(2)}
+  \grHouse[RA=\rad]
+  \Edge(a0)(a2)
+  \Edge(a1)(a3)
+  \only<2>{\AddVertexColor{red}{a0,a2,a3}}
+  \only<3>{\AddVertexColor{blue}{a0,a1,a4}}
+  \only<4>{\AddVertexColor{green}{a0,a1,a2,a3}}
+  \only<5>{\AddVertexColor{magenta}{a2}}
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt completas :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[db755e2dbc6367d938b2661f0478028899dfde3d]: completas
+   [[file:completas.png]]
+
+** Clanes
+
+   Un *clan* de una gráfica es una completa maximal bajo inclusión.
+   
+   #+name: clan
+   #+header: :file (by-backend (latex "clan.tikz") (beamer "clan.tikz") (t "clan.png"))
+   #+begin_src latex
+\begin{tikzpicture}
+  \pgfmathsetmacro{\edgel}{2}
+  \pgfmathsetmacro{\rad}{\edgel/sqrt(2)}
+  \grHouse[RA=\rad]
+  \Edge(a0)(a2)
+  \Edge(a1)(a3)
+  \only<2>{\AddVertexColor{blue}{a0,a1,a4}}
+  \only<3>{\AddVertexColor{red}{a0,a1,a2,a3}}
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt clan :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[3ad1913e41151dd7be1e878d3d5402cacd55f717]: clan
+   [[file:clan.png]]
+
+** Gráfica de clanes
+
+   Dada una gráfica \(G\), su *gráfica de clanes \(K(G)\)* es la gráfica
+   de intersección de la colección de clanes de \(G\). Es decir:
+
+   - \(V\big(K(G)\big)=\{Q\subseteq V(G)\mid Q \text{ es clan de } G\}\),
+   - \(E\big(K(G)\big)=\{\{Q_{1},Q_{2}\}\mid Q_{1}\ne Q_{2}, Q_{1}\cap Q_{2}\ne\emptyset\}\).
+
+** Ejemplo
+
+   #+name: graficadeclanes
+   #+header: :file (by-backend (latex "graficadeclanes.tikz") (beamer "graficadeclanes.tikz") (t "graficadeclanes.png"))
+   #+begin_src latex
+\newcommand{\graphcaption}[4][gray!80!white]{\draw (#2,#3) node [fill=#1]{#4};}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\edgel}{1.8}
+  \pgfmathsetmacro{\rad}{\edgel/sqrt(2)}
+  \grHouse[RA=\rad]
+  \Edge(a0)(a2)
+  \Edge(a1)(a3)   
+  \uncover<2>{\AddVertexColor{blue}{a0,a1,a4}}
+  \uncover<3>{\AddVertexColor{red}{a0,a1,a2,a3}}
+  \graphcaption{0}{-0.9*\edgel}{$G$}
+  \uncover<4->{%
+    \grPath[RA=\edgel,form=2,rotation=90,x=4,y=\edgel/2]{2}
+    \AddVertexColor{red}{a0}
+    \AddVertexColor{blue}{a1}
+    \graphcaption{4}{-0.9*\edgel}{$K(G)$}
+  }
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt graficadeclanes :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[c8eae88294fb16fe9ef1cc9e2958eacd0cfb7f5e]: graficadeclanes
+   [[file:graficadeclanes.png]]
+
+** Gráficas iteradas de clanes
+
+     La sucesión de *gráficas iteradas de clanes* se define como:
+     \begin{align*}
+     K^{0}(G) &= G,\\
+     K^{n}(G) &= K^{n-1}(K(G)), \text{ para \(n\geq1\)}.
+     \end{align*}
+
+** Ejemplo
+
+     #+name: iteradas
+     #+header: :file (by-backend (latex "iteradas.tikz") (beamer "iteradas.tikz") (t "iteradas.png"))
+     #+begin_src latex
+\bigskip
+\newcommand{\graphcaption}[4][gray!80!white]{\draw (#2,#3) node [fill=#1]{#4};}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\edgel}{1.8}
+  \pgfmathsetmacro{\rad}{\edgel/sqrt(2)}
+  \grHouse[RA=\rad]
+  \Edge(a0)(a2)
+  \Edge(a1)(a3)   
+  \graphcaption{0}{-0.9*\edgel}{$G$}
+  \uncover<2->{%
+    \grPath[RA=\edgel,form=2,rotation=90,x=3,y=\edgel/2]{2}
+    \graphcaption{3}{-0.9*\edgel}{$K(G)$}
+  }
+  \uncover<3->{%
+    \Vertex[x=6,y=\edgel/2]{x}
+    \graphcaption{6}{-0.9*\edgel}{$K^{2}(G)$}
+  }
+\end{tikzpicture}
+     #+end_src
+   
+     #+attr_html: :width 400 :alt iteradas :align center
+     #+attr_latex: :float t :width ""
+     #+RESULTS[b17f15fb4ff43b36b9487054115026a2a0ed2368]: iteradas
+     [[file:iteradas.png]]
+
+** Prisma
+
+   - El prisma triangular y su gráfica de clanes:
+
+     #+name: prisma
+     #+header: :file (by-backend (latex "prisma.tikz") (beamer "prisma.tikz") (t "prisma.png"))
+     #+begin_src latex
+\bigskip
+\newcommand{\graphcaption}[4][gray!80!white]{\draw (#2,#3) node [fill=#1]{#4};}
+\begin{tikzpicture}
+  \pgfmathsetmacro{\rad}{1.5}
+  \grPrism[RA=\rad, RB=0.4*\rad, rotation=90]{3}
+  \graphcaption{0}{-\rad}{Prisma $T_{3}$}
+  \grPath[x=3*\rad, form=2, prefix=x, RA=0.7, RS=-\rad/2]{1}
+  \grEmptyPath[x=3*\rad, form=2, prefix=y, RA=\rad, RS=\rad/4]{3}
+  \grPath[x=3*\rad, form=2, prefix=z, RA=0.7, RS=\rad]{1}
+  \EdgeFromOneToAll{x}{y}{0}{3}
+  \EdgeFromOneToAll{z}{y}{0}{3}
+  \graphcaption{3*\rad}{-\rad}{$K(T_{3})$}
+\end{tikzpicture}
+\bigskip
+     #+end_src
+
+     #+attr_html: :width 400 :alt prisma :align center
+     #+attr_latex: :float t :width ""
+     #+RESULTS[1e4beeb6c06a180edb4af636ceba743093955f78]: prisma
+     [[file:prisma.png]]
+
+   - En este caso, \(K^{2}(T_{3})\cong T_{3}\).
+
+** Iteradas del octaedro
+
+   Si definimos el *octaedro* \(O_{n}\) como \(\overline{nK_{2}}\),
+   entonces \(K(O_{n})=O_{2^{n-1}}\). (Neumann-Lara, 1973).
+
+   #+name: iteradasoctaedro
+   #+header: :file (by-backend (latex "iteradasoctaedro.tikz") (beamer "iteradasoctaedro.tikz") (t "iteradasoctaedro.png"))
+   #+begin_src latex
+\bigskip
+\newcommand{\graphcaption}[4][gray!80!white]{\draw (#2,#3) node [fill=#1]{#4};}
+\begin{tikzpicture}
+  \grOctahedron[RA=1]{3}
+  \graphcaption{0}{-1.6}{$G=O_{3}$}
+
+  \uncover<2->{%
+    \begin{scope}[xshift=3cm]
+      \grOctahedron[RA=1.2]{4}
+    \end{scope}
+    \graphcaption{3}{-2.0}{$K(G)=O_{4}$}
+  }
+  \uncover<3->{%
+    \begin{scope}[xshift=7.3cm]
+      \grOctahedron[RA=2.3]{8}
+    \end{scope}
+    \graphcaption{7.3}{-3.2}{$K^{2}(G)=O_{8}$}
+  }
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt iteradasoctaedro :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[e896a4fc5be06a748a412df67cc831f900e32e83]: iteradasoctaedro
+   [[file:iteradasoctaedro.png]]
+
+** Comportamiento
+
+   - Decimos que \(G\) es *convergente* si la sucesión de órdenes de
+     las gráficas \(|K^{n}(G)|\) es acotada.
+   - Esto es equivalente a que la sucesión
+     \begin{equation*}
+     G, K(G), K^{2}(G),K^{3}(G),\ldots
+     \end{equation*}
+     consta, salvo isomorfismo, de una cantidad finita de diferentes
+     gráficas.
+   - También es equivalente a que existan \(m<n\) tales que
+     \(K^{m}(G)\cong K^{n}(G)\).
+   - Si \(G\) no es convergente, decimos que es *divergente*.
+
+
+* Teoremas sobre comportamiento
+
+** Gráficas Helly
+
+   - La gráfica \(G\) es *Helly* si su colección de clanes tiene la
+     propiedad de Helly.
+   - Gráficas sin triángulos son Helly. 
+   - La gráfica más pequeña que *no* es Helly:
+
+     #+name: no-helly
+     #+header: :imagemagick yes :iminoptions -density 300 -resize 400
+     #+header: :packages '(("" "tikz") ("" "tkz-berge")) :border 1pt
+     #+header: :file (by-backend (latex "no-helly.tikz") (beamer "no-helly.tikz") (t "no-helly.png"))
+     #+header: :cache yes
+     #+begin_src latex
+\begin{tikzpicture}[scale=0.7]
+  \grPath[form=2,prefix=x,RA=1,RS=0]{3}
+  \grPath[form=2,prefix=y,RA=1,RS=1]{2}
+  \grPath[form=2,prefix=z,RA=1,RS=2]{1}
+  \Edges(x0,y0,z0,y1,x2)
+  \Edges(y0,x1,y1)         
+\end{tikzpicture}
+     #+end_src
+
+     #+attr_html: :width 400 :alt no-helly :align center
+     #+attr_latex: :float t :width ""
+     #+RESULTS[50693048fcf1823302532be17951b82119f97c55]: no-helly
+     [[file:no-helly.png]]
+
+   - Existe un algoritmo polinomial que decide si una gráfica es
+     Helly. (Dragan, 1989) (Szwarcfiter, 1997)
+   - (Escalante, 1973) Si \(G\) es Helly, entonces \(G\) es convergente.
+
+** Morfismos de gráficas
+
+***                                                          :B_column:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: column
+    :BEAMER_col: 0.6
+    :END:
+    Un *morfismo de gráficas* \(f\colon G\to L\) es una función tal
+    que \(x\sim y\) implica \(f(x)\sim f(y)\) o \(f(x)=f(y)\).
+
+***                                                          :B_column:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: column
+    :BEAMER_col: 0.4
+    :END:
+    #+name: morfismo
+    #+header: :file (by-backend (latex "morfismo.tikz") (beamer "morfismo.tikz") (t "morfismo.png"))
+    #+begin_src latex
+\begin{tikzpicture}
+  \newcommand{\graphcaption}[4][gray!80!white]{\draw (#2,#3) node [fill=#1]{#4};}
+  \grMan[RA=1]
+  \graphcaption{0}{-3}{\(G\)}
+  \AddVertexColor{red}{a0,a1,a2,a3}
+  \AddVertexColor{blue}{a4,a5,a6}
+  \AddVertexColor{green}{a7}
+  \AddVertexColor{orange}{a8,a9}
+  \grPath[x=2, y=-2, form=1, rotation=90, RA=1]{4}
+  \graphcaption{2}{-3}{\(L\)}
+  \AddVertexColor{red}{a3}
+  \AddVertexColor{blue}{a2}
+  \AddVertexColor{green}{a1}
+  \AddVertexColor{orange}{a0}
+\end{tikzpicture}
+    #+end_src
+    
+    #+attr_html: :width 400 :alt morfismo :align center
+    #+attr_latex: :float t :width ""
+    #+RESULTS[bfb63258ac3cadea7b2a94dcd0da159a0a253b1f]: morfismo
+    [[file:morfismo.png]]
+
+** Retracciones 
+
+***                                                          :B_column:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: column
+    :BEAMER_col: 0.6
+    :END:
+    Si \(L\) es una subgráfica de \(G\), una *retracción* \(r\colon
+    G\to L\) es un morfismo tal que \(r(x)=x\) para todo \(x\in L\).
+
+***                                                          :B_column:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: column
+    :BEAMER_col: 0.4
+    :END:
+    #+name: retracción
+    #+header: :file (by-backend (latex "retracción.tikz") (beamer "retracción.tikz") (t "retracción.png"))
+    #+begin_src latex
+\setxyzvec[17]
+\newcommand{\graphcaption}[4][gray!80!white]{\draw (#2,#3) node [fill=#1]{#4};}
+\begin{tikzpicture}[scale=0.5]%
+  [x = {(\xone cm,\yone cm)}, y = {(\xtwo cm,\ytwo cm)}, z =
+  {(0cm,1cm)}]
+  \begin{scope}[canvas is xy plane at z=0]
+    \grEmptyCycle[RA=2,prefix=a,rotation=35]{4}
+  \end{scope}
+  \begin{scope}[canvas is xy plane at z=-2.5]
+    \Vertex{x}
+  \end{scope}
+  \begin{scope}[canvas is xy plane at z=2.5]
+    \Vertex{y}
+  \end{scope}
+  \EdgeFromOneToAll{x}{a}{}{4}
+  \EdgeInGraphLoop{a}{4}
+  \EdgeFromOneToAll{y}{a}{}{4}
+  \uncover<4>{\graphcaption{6}{6}{$O_{3}$}}
+  \uncover<5->{%
+    \begin{scope}[canvas is xy plane at z=2.5]
+      \Vertex[x=2,y=-2]{z}
+    \end{scope}
+    \EdgeFromOneToSel{z}{a}{}{0,3} \Edge(z)(y)
+  }
+  \uncover<6->{%
+    \begin{scope}[canvas is xy plane at z=-2.5]
+      \Vertex[x=2,y=-2]{w}
+    \end{scope}
+    \EdgeFromOneToSel{w}{a}{}{0,3} \Edge(w)(x)
+  }
+  \uncover<7->{\Edge(z)(w)}
+  \uncover<8->{%
+    {\SetUpEdge[color=magenta,lw=3pt]
+      \Edge[style={bend right=45,->}](z)(a3)
+      \Edge[style={bend right=45,->}](w)(a0)}
+    \graphcaption{7}{7}{retracción}
+  }
+\end{tikzpicture}
+ 
+    #+end_src
+    
+    #+attr_html: :width 400 :alt retracción :align center
+    #+attr_latex: :float t :width ""
+    #+RESULTS[2373d13930725ea7d03e1da79c88a6e2fd782b5f]: retracción
+    [[file:retracción.png]]
+
+#+beamer: \pause
+#+beamer: \pause
+#+beamer: \pause
+#+beamer: \pause
+#+beamer: \pause
+
+***                                                         :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - (Neumann-Lara, 1976). Si \(r\colon G\to L\) es una retracción,
+      entonces se induce una retracción \(K(r)\colon K(G)\to
+      K(L)\).
+    - En particular, si \(L\) es divergente, entonces \(G\) es
+      divergente. 
+
+** Retracciones a octaedros
+
+   - En la práctica, las retracciones a octaedros son frecuentes.
+   - Entre las retracciones a octaedros, las que son relativamente
+     más fáciles de detectar son los *octaedros especiales*.
+   - Un octaedro especial en la gráfica \(G\) es una subgráfica \(H\)
+     tal que \(H\cong O_{n}\) para alguna \(n\geq3\) y tal que un clan
+     de \(H\) es un clan de \(G\).
+   - (Larrión, Pizaña, V., 2019) Si \(G\) tiene un octaedro especial
+     \(H\), entonces \(G\) se retrae a \(H\).
+
+** Expansivas
+
+   - Con la teoría de *gráficas expansivas*, Neumann-Lara (1976) probó
+     que las *suspensiones* de ciclos de \(n\) vértices, para \(n\geq
+     5\), son divergentes.
+
+     #+name: suspensiones
+     #+header: :file (by-backend (latex "suspensiones.tikz") (beamer "suspensiones.tikz") (t "suspensiones.png"))
+     #+begin_src latex
+\bigskip
+\begin{tikzpicture}[scale=1.5]
+  \setxyzvec[20]
+  \grEmptyCycle[RA=1,prefix=y,rotation=10]{6}
+  \begin{scope}[yshift=1.4cm]
+    \Vertex{x}
+  \end{scope}
+  \begin{scope}[yshift=-1.4cm]
+    \Vertex{z}
+  \end{scope}
+  \EdgeFromOneToAll{z}{y}{}{6}
+  \Edges(y0,y1,y2,y3,y4,y5,y0)
+  \EdgeFromOneToAll{x}{y}{}{6}
+  \grCycle[RA=1,prefix=y,rotation=10]{6}
+  \Edge(y0)(x)
+  \Edge(y1)(x)
+\end{tikzpicture}
+     #+end_src
+   
+     #+attr_html: :width 400 :alt suspensiones :align center
+     #+attr_latex: :float t :width ""
+     #+RESULTS[8c54688637c2b49606e64a51c550637c799a95f8]: suspensiones
+     [[file:suspensiones.png]]
+
+** 
+
+   - Los *complementos* de los ciclos de \(n\) vértices, para \(n\geq
+     8\), también son gráficas expansivas, por lo tanto, divergentes.
+
+     #+name: complementos-de-ciclos
+     #+header: :file (by-backend (latex "complementos-de-ciclos.tikz") (beamer "complementos-de-ciclos.tikz") (t "complementos-de-ciclos.png"))
+     #+begin_src latex
+\bigskip
+\begin{tikzpicture}
+  \grEmptyCycle[RA=2]{8}
+  \EdgeInGraphMod{a}{8}{2}
+  \EdgeInGraphMod{a}{8}{3}
+  \EdgeInGraphMod{a}{8}{4}
+\end{tikzpicture}
+     #+end_src
+     
+     #+attr_html: :width 400 :alt complementos-de-ciclos :align center
+     #+attr_latex: :float t :width ""
+     #+RESULTS[d2570c75d65664e6fc5fe8c0e631004c73643c3a]: complementos-de-ciclos
+     [[file:complementos-de-ciclos.png]]
+  
+** Operaciones en gráficas
+
+   - Si \(G\) y \(H\) son gráficas, escribimos \(G\cup H\) a su
+     *unión disjunta*.
+   - Escribimos \(G+H\) a la gráfica que se obtiene de \(G\cup H\)
+     añadiendo todas las aristas posibles entre un vértice de \(G\) y
+     un vértice de \(H\).
+   - Se tiene que: \(\overline{G\cup H}=\overline{G}+\overline{H}\).
+
+** Coafinaciones
+
+   - Una coafinación de la gráfica \(G\) es un automorfismo
+     \(\sigma\colon G\to G\) tal que para todo \(x\in G\) se tiene
+     que \(x\) no es vecino de \(\sigma(x)\).
+   - Se puede demostrar que si \(G\) tiene una coafinación, se induce
+     una coafinación en \(K(G)\).
+   - Si \(G\) y \(H\) tienen una coafinación, se induce una
+     coafinación en \(G+H\).
+
+** Ejemplo
+
+   #+name: coafinacion
+   #+header: :file (by-backend (latex "coafinacion.tikz") (beamer "coafinacion.tikz") (t "coafinacion.png"))
+   #+begin_src latex
+\begin{tikzpicture}
+  \grCycle[RA=2]{6}
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt coafinacion :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[8b4d3617cca5a53956a923495e9a01f66aad09bd]: coafinacion
+   [[file:coafinacion.png]]
+
+** Teoremas de Víctor Neumann-Lara
+
+   - (Tres sumandos) Si \(A,B,C\) son gráficas que tienen una
+     coafinación, entonces \(A+B+C\) es divergente.
+   - (Sumando conexo) Si \(G,H\) tienen coafinaciones y \(H\) es
+     conexa, entonces \(G+H\) es divergente.
+
+
+* COMMENT Local Variables
+
+# Local Variables:
+# org-confirm-babel-evaluate: nil
+# org-beamer-outline-frame-title: "Esbozo"
+# eval: (org-babel-lob-ingest "./options.org")
+# eval: (org-sbe maketitle-filter)
+# eval: (add-to-list 'org-export-filter-final-output-functions 'my-beamer-maketitle-replacement)
+# End:
