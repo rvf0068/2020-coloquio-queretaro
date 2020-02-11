@@ -27,6 +27,7 @@
 #+latex_header: \usepackage{tikz}
 #+latex_header: \usepackage{tkz-berge}
 #+latex_header: \usepackage{tkz-berge-add}
+#+latex_header: \usepackage{graphiso}
 #+latex_header: \usepackage[spanish, mexico, es-noshorthands]{babel}
 
 #+latex_header: % remove space between margin and lists
