@@ -2,7 +2,7 @@
 
 #+title: Gráficas de clanes{{{newline}}} de complementos{{{newline}}} de gráficas regulares
 #+author: Rafael Villarroel Flores, UAEH
-#+date: Coloquio VNL
+#+date: XXXV Coloquio Víctor Neumann-Lara{{{newline}}} de Teoría de las Gráficas, Combinatoria{{{newline}}} y sus Aplicaciones
 #+setupfile: options.org
 
 #+latex: \SetVertexNotLabeledSmall
@@ -447,6 +447,8 @@
      añadiendo todas las aristas posibles entre un vértice de \(G\) y
      un vértice de \(H\).
    - Se tiene que: \(\overline{G\cup H}=\overline{G}+\overline{H}\).
+   - Estas operaciones y resultados se extienden a más de dos
+     gráficas.
 
 ** Coafinaciones
 
@@ -520,12 +522,63 @@
 
 ** Teoremas de Víctor Neumann-Lara
 
-   - (Tres sumandos) Si \(A,B,C\) son gráficas que tienen una
-     coafinación, entonces \(A+B+C\) es divergente.
+   - (Complementos de ciclos) \(\overline{C_{n}}\) es divergente si
+     \(n\geq 8\).
    - (Sumando conexo) Si \(G,H\) tienen coafinaciones y \(H\) es
      conexa, entonces \(G+H\) es divergente.
+   - (Tres sumandos) Si \(A,B,C\) son gráficas que tienen una
+     coafinación, entonces \(A+B+C\) es divergente.
 
 
+* Complementos de gráficas{{{newline}}} regulares
+
+** Gráficas 1-regulares
+
+*** 1-regulares                                                   :B_theorem:
+    :PROPERTIES:
+    :BEAMER_env: theorem
+    :END:
+    Si \(G\) es una gráfica 1-regular con al menos 6 vértices,
+    entonces \(\overline{G}\) es divergente.
+
+***
+    - Si \(G\) es 1-regular, entonces \(G\) es una unión disjunta de
+      copias de \(K_{2}\).
+    - Si \(G=nK_{2}\), entonces \(\overline{G}=O_{n}\)
+
+** Gráficas 2-regulares
+
+*** 2-regulares                                                   :B_theorem:
+    :PROPERTIES:
+    :BEAMER_env: theorem
+    :END:
+    Si \(G\) es una gráfica 2-regular con al menos 9 vértices,
+    entonces \(\overline{G}\) es divergente.
+
+** 
+
+*** 
+    - Si \(G\) es \(2\)-regular, entonces es una unión disjunta de
+      ciclos.
+    - Entonces \(\overline{G}\) tiene la forma:
+      \begin{equation*}
+      \overline{G}=\overline{C_{n_{1}}}+\overline{C_{n_{2}}}+\cdots+\overline{C_{n_{r}}}
+      \end{equation*}
+      es decir, una suma de gráficas, cada una con coafinación.
+    - Si \(r=1\), \(\overline{G}\) es divergente pues
+      \(|\overline{G}|\geq 8\).
+    - Si \(r=2\), uno de los dos sumandos debe tener al menos 5
+      vértices. Como \(\overline{C_{n}}\) es conexo si \(n\geq 5\),
+      por el teorema del sumando conexo, \(\overline{G}\) es divergente.
+    - Si \(r\geq 3\), el resultado se sigue del teorema de los tres
+      sumandos.
+
+** Observación
+
+   La única gráfica 2-regular con 8-vértices cuyo complemento es
+   convergente es \(C_{4}\cup C_{4}\).
+
+** Gráficas 3-regulares
 
 
 * COMMENT Local Variables
