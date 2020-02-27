@@ -8,14 +8,14 @@
 #+latex: \SetVertexNotLabeledSmall
 #+latex: \tikzstyle{EdgeStyle}=[color=white, line width=0.5pt, double=black, double distance=1pt]
 
-* El operador de clanes en gráficas
+* El operador de clanes{{{newline}}} en gráficas
 
 ** Gráficas
 
    - Nosotros consideramos solamente gráficas finitas y simples (no
      dirigidas, sin lazos, sin aristas múltiples).
    - La cantidad de vértices de la gráfica \(G\) se llama el *orden*
-     de \(G\) y lo denotamos \(|G|\).
+     de \(G\) y lo denotamos \(|G|\).
 
 ** Completas
 
@@ -69,7 +69,7 @@
 ** Gráfica de clanes
 
    Dada una gráfica \(G\), su *gráfica de clanes \(K(G)\)* es la gráfica
-   de intersección de la colección de clanes de \(G\). Es decir:
+   de intersección de los clanes de \(G\). Es decir:
 
    - \(V\big(K(G)\big)=\{Q\subseteq V(G)\mid Q \text{ es clan de } G\}\),
    - \(E\big(K(G)\big)=\{\{Q_{1},Q_{2}\}\mid Q_{1}\ne Q_{2}, Q_{1}\cap Q_{2}\ne\emptyset\}\).
@@ -226,29 +226,6 @@
 
    - La gráfica \(G\) es *Helly* si su colección de clanes tiene la
      propiedad de Helly.
-   - Gráficas sin triángulos son Helly. 
-   - La gráfica más pequeña que *no* es Helly:
-
-     #+name: no-helly
-     #+header: :imagemagick yes :iminoptions -density 300 -resize 400
-     #+header: :packages '(("" "tikz") ("" "tkz-berge")) :border 1pt
-     #+header: :file (by-backend (latex "no-helly.tikz") (beamer "no-helly.tikz") (t "no-helly.png"))
-     #+header: :cache yes
-     #+begin_src latex
-\begin{tikzpicture}[scale=0.7]
-  \grPath[form=2,prefix=x,RA=1,RS=0]{3}
-  \grPath[form=2,prefix=y,RA=1,RS=1]{2}
-  \grPath[form=2,prefix=z,RA=1,RS=2]{1}
-  \Edges(x0,y0,z0,y1,x2)
-  \Edges(y0,x1,y1)         
-\end{tikzpicture}
-     #+end_src
-
-     #+attr_html: :width 400 :alt no-helly :align center
-     #+attr_latex: :float t :width ""
-     #+RESULTS[50693048fcf1823302532be17951b82119f97c55]: no-helly
-     [[file:no-helly.png]]
-
    - Existe un algoritmo polinomial que decide si una gráfica es
      Helly. (Dragan, 1989) (Szwarcfiter, 1997)
    - (Escalante, 1973) Si \(G\) es Helly, entonces \(G\) es convergente.
@@ -373,16 +350,40 @@
     - En particular, si \(L\) es divergente, entonces \(G\) es
       divergente. 
 
-** Retracciones a octaedros
+** Retracciones especiales
 
-   - En la práctica, las retracciones a octaedros son frecuentes.
-   - Entre las retracciones a octaedros, las que son relativamente
-     más fáciles de detectar son los *octaedros especiales*.
    - Un octaedro especial en la gráfica \(G\) es una subgráfica \(H\)
      tal que \(H\cong O_{n}\) para alguna \(n\geq3\) y tal que un clan
      de \(H\) es un clan de \(G\).
    - (Larrión, Pizaña, V., 2019) Si \(G\) tiene un octaedro especial
      \(H\), entonces \(G\) se retrae a \(H\).
+
+   - Ejemplo: \(G=\overline{C_{9}}\).
+   #+name: retesp
+   #+header: :file (by-backend (latex "retesp.tikz") (beamer "retesp.tikz") (t "retesp.png"))
+   #+begin_src latex
+\begin{tikzpicture}
+  \grCycle[RA=1.8]{9}
+  \uncover<4->{%
+    {\SetUpEdge[color=blue,lw=3pt]
+      \Edge(a0)(a1)
+      \Edge(a3)(a4)
+      \Edge(a6)(a7)
+      \AddVertexColor{blue}{a0,a1,a3,a4,a6,a7}}}
+  \uncover<5->{%
+    \node (a0text) at (2.8,0) [align=center] {};
+    \draw[->,cyan,line width=4.5pt] (a0text)  -- (a0);
+    \node (a3text) at (120:2.8) [align=center] {};
+    \draw[->,cyan,line width=4.5pt] (a3text)  -- (a3);
+    \node (a6text) at (240:2.8) [align=center] {};
+    \draw[->,cyan,line width=4.5pt] (a6text)  -- (a6);}
+\end{tikzpicture}
+   #+end_src
+   
+   #+attr_html: :width 400 :alt retesp :align center
+   #+attr_latex: :float t :width ""
+   #+RESULTS[99c35de5da1561e4e9f897db111a51cace5696a5]: retesp
+   [[file:retesp.png]]
 
 ** Expansivas
 
@@ -417,7 +418,7 @@
      #+RESULTS[8c54688637c2b49606e64a51c550637c799a95f8]: suspensiones
      [[file:suspensiones.png]]
 
-** Complementos de ciclos
+** COMMENT Complementos de ciclos
 
    - Los *complementos* de los ciclos de \(n\) vértices, para \(n\geq
      8\), también son gráficas expansivas, por lo tanto, divergentes.
@@ -441,9 +442,9 @@
   
 ** Operaciones en gráficas
 
-   - Si \(G\) y \(H\) son gráficas, escribimos \(G\cup H\) a su
+   - Si \(G\) y \(H\) son gráficas, denotamos con \(G\cup H\) a su
      *unión disjunta*.
-   - Escribimos \(G+H\) a la gráfica que se obtiene de \(G\cup H\)
+   - Denotamos con \(G+H\) a la gráfica que se obtiene de \(G\cup H\)
      añadiendo todas las aristas posibles entre un vértice de \(G\) y
      un vértice de \(H\).
    - Se tiene que: \(\overline{G\cup H}=\overline{G}+\overline{H}\).
@@ -541,10 +542,11 @@
     Si \(G\) es una gráfica 1-regular con al menos 6 vértices,
     entonces \(\overline{G}\) es divergente.
 
-***
+*** Demostración
     - Si \(G\) es 1-regular, entonces \(G\) es una unión disjunta de
-      copias de \(K_{2}\).
-    - Si \(G=nK_{2}\), entonces \(\overline{G}=O_{n}\)
+      \(n\) copias de \(K_{2}\). Si \(|G|\geq 6\), entonces \(n\geq 3\).
+    - Si \(G=nK_{2}\), entonces \(\overline{G}=O_{n}\), que es
+      divergente para \(n\geq 3\). \(\square\)
 
 ** Gráficas 2-regulares
 
@@ -556,8 +558,7 @@
     entonces \(\overline{G}\) es divergente.
 
 ** 
-
-*** 
+*** Demostración
     - Si \(G\) es \(2\)-regular, entonces es una unión disjunta de
       ciclos.
     - Entonces \(\overline{G}\) tiene la forma:
@@ -570,15 +571,64 @@
     - Si \(r=2\), uno de los dos sumandos debe tener al menos 5
       vértices. Como \(\overline{C_{n}}\) es conexo si \(n\geq 5\),
       por el teorema del sumando conexo, \(\overline{G}\) es divergente.
-    - Si \(r\geq 3\), el resultado se sigue del teorema de los tres
-      sumandos.
+    - Si \(r\geq 3\), se aplica el teorema de los tres
+      sumandos. \(\square\)
 
 ** Observación
 
-   La única gráfica 2-regular con 8-vértices cuyo complemento es
-   convergente es \(C_{4}\cup C_{4}\).
+   - Si \(G\) es 1-regular y \(|G|\geq 6\), \(\overline{G}\) es divergente.
+   - Si \(G\) es 2-regular y \(|G|\geq 9\), \(\overline{G}\) es divergente.
+   - Parece razonable conjeturar: Si \(G\) es 3-regular, entonces
+     existe \(M\) tal que si \(|G|\geq M\), entonces \(\overline{G}\)
+     es divergente.
+   - Quizás \(M=12\).
 
-** Gráficas 3-regulares
+** Gráficas cúbicas con \(\leq\) 10 vértices
+
+   | \(n\) | Cantidad de gráficas \(G\) | \(\overline{G}\) convergente | \(\overline{G}\) divergente |
+   |-------+----------------------------+------------------------------+-----------------------------|
+   |     4 |                          1 |                            1 |                           0 |
+   |     6 |                          2 |                            2 |                           0 |
+   |     8 |                          6 |                            6 |                           0 |
+   |    10 |                         21 |                            4 |                          17 |
+
+   #+beamer: \bigskip\pause
+
+   - De las 17 divergentes, 9 tienen octaedro especial, 3 se retraen a
+     la suspensión de \(C_{5}\), 3 tienen octaedro especial en
+     \(K^{3}(G)\), 1 se retrae a la suspensión de \(C_{6}\) y 1 tiene
+     \(K(G)\) con retracción a \(\overline{C_{10}}\).
+   - Es notable que podamos determinar el comportamiento de todas.
+
+** Gráficas cúbicas con 12 vértices
+
+   - Hay 85 gráficas cúbicas conexas con 12 vértices y 9 disconexas.
+   - De las 85 conexas, hay 40 que tienen un octaedro especial.
+   - De las 45 que quedan, una se retrae a la suspensión de \(C_{5}\).
+   - De las 44 que quedan, una se retrae a \(\overline{C_{8}}\).
+   - Las 43 restantes se clanean, en 18 \(K(G)\) tiene octaedro especial.
+   - No he podido determinar el comportamiento de las 25 restantes. 
+  
+** Tipo de homotopía
+
+   - De las 25 restantes, 8 tienen el tipo de homotopía de \(S^{2}\),
+     7 tienen el tipo de \(S^{2}\vee S^{2}\), 4 tienen el tipo de
+     \(S^{2}\vee S^{2}\vee S^{2}\), 1 de \(S^{2}\vee S^{2}\vee
+     S^{2}\vee S^{2}\), 1 de \(S^{3}\), una tiene la homología de
+     \(S^{2}\) y otra la de \(S^{2}\vee S^{2}\).
+   - Las restantes dos \(G\) son notables, pues son contraíbles, pero
+     \(K(G)\) tiene el tipo de \(S^{3}\).
+   - Estos resultados topológicos sugieren fuertemente que las 25
+     restantes son divergentes.
+  
+** Gráficas cúbicas disconexas
+
+   - \(\overline{K_{4}}+\overline{K_{4}}+\overline{K_{4}}\) es
+     divergente por el teorema de los 3 sumandos.
+   - \(\overline{K_{4}}+\overline{H}\), donde \(H\) es conexa cúbica
+     con 8 vértices es divergente en los 5 casos.
+   - Sin embargo, \(\overline{K_{3,3}}+\overline{K_{3,3}}\) es
+     convergente. 
 
 
 * COMMENT Local Variables
