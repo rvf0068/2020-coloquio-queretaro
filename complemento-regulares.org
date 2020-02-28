@@ -209,14 +209,6 @@
 
    - Decimos que \(G\) es *convergente* si la sucesión de órdenes de
      las gráficas \(|K^{n}(G)|\) es acotada.
-   - Esto es equivalente a que la sucesión
-     \begin{equation*}
-     G, K(G), K^{2}(G),K^{3}(G),\ldots
-     \end{equation*}
-     consta, salvo isomorfismo, de una cantidad finita de diferentes
-     gráficas.
-   - También es equivalente a que existan \(m<n\) tales que
-     \(K^{m}(G)\cong K^{n}(G)\).
    - Si \(G\) no es convergente, decimos que es *divergente*.
 
 
@@ -353,15 +345,14 @@
 ** Retracciones especiales
 
    - Un octaedro especial en la gráfica \(G\) es una subgráfica \(H\)
-     tal que \(H\cong O_{n}\) para alguna \(n\geq3\) y tal que un clan
-     de \(H\) es un clan de \(G\).
+     tal que \(H\cong O_{n}\), y tal que un clan de \(H\) es un clan
+     de \(G\).
    - (Larrión, Pizaña, V., 2019) Si \(G\) tiene un octaedro especial
      \(H\), entonces \(G\) se retrae a \(H\).
-
    - Ejemplo: \(G=\overline{C_{9}}\).
-   #+name: retesp
-   #+header: :file (by-backend (latex "retesp.tikz") (beamer "retesp.tikz") (t "retesp.png"))
-   #+begin_src latex
+     #+name: retesp
+     #+header: :file (by-backend (latex "retesp.tikz") (beamer "retesp.tikz") (t "retesp.png"))
+     #+begin_src latex
 \begin{tikzpicture}
   \grCycle[RA=1.8]{9}
   \uncover<4->{%
@@ -378,14 +369,14 @@
     \node (a6text) at (240:2.8) [align=center] {};
     \draw[->,cyan,line width=4.5pt] (a6text)  -- (a6);}
 \end{tikzpicture}
-   #+end_src
-   
-   #+attr_html: :width 400 :alt retesp :align center
-   #+attr_latex: :float t :width ""
-   #+RESULTS[99c35de5da1561e4e9f897db111a51cace5696a5]: retesp
-   [[file:retesp.png]]
-
-** Expansivas
+     #+end_src
+     
+     #+attr_html: :width 400 :alt retesp :align center
+     #+attr_latex: :float t :width ""
+     #+RESULTS[99c35de5da1561e4e9f897db111a51cace5696a5]: retesp
+     [[file:retesp.png]]
+  
+** COMMENT Expansivas
 
    - Con la teoría de *gráficas expansivas*, Neumann-Lara (1976) probó
      que las *suspensiones* de ciclos de \(n\) vértices, para \(n\geq
@@ -444,9 +435,9 @@
 
    - Si \(G\) y \(H\) son gráficas, denotamos con \(G\cup H\) a su
      *unión disjunta*.
-   - Denotamos con \(G+H\) a la gráfica que se obtiene de \(G\cup H\)
-     añadiendo todas las aristas posibles entre un vértice de \(G\) y
-     un vértice de \(H\).
+   - \(G+H\) es la gráfica que se obtiene de \(G\cup H\) añadiendo
+     todas las aristas posibles entre un vértice de \(G\) y un vértice
+     de \(H\).
    - Se tiene que: \(\overline{G\cup H}=\overline{G}+\overline{H}\).
    - Estas operaciones y resultados se extienden a más de dos
      gráficas.
@@ -602,23 +593,23 @@
 
 ** Gráficas cúbicas con 12 vértices
 
-   - Hay 85 gráficas cúbicas conexas con 12 vértices y 9 disconexas.
+   - Hay exactamente 94 gráficas cúbicas con 12 vértices, de las
+     cuales 9 son disconexas.
    - De las 85 conexas, hay 40 que tienen un octaedro especial.
-   - De las 45 que quedan, una se retrae a la suspensión de \(C_{5}\).
-   - De las 44 que quedan, una se retrae a \(\overline{C_{8}}\).
-   - Las 43 restantes se clanean, en 18 \(K(G)\) tiene octaedro especial.
-   - No he podido determinar el comportamiento de las 25 restantes. 
+   - De las 45 que quedan, 28 se retraen a \(O_{3}\), aunque no
+     especialmente. 
+   - De las 17 que quedan, una se retrae a \(\overline{C_{8}}\).
+   - De las 16 restantes, en 3, \(K(G)\) tiene octaedro especial.
+   - No he podido determinar el comportamiento de las 13 restantes. 
   
 ** Tipo de homotopía
 
-   - De las 25 restantes, 8 tienen el tipo de homotopía de \(S^{2}\),
-     7 tienen el tipo de \(S^{2}\vee S^{2}\), 4 tienen el tipo de
-     \(S^{2}\vee S^{2}\vee S^{2}\), 1 de \(S^{2}\vee S^{2}\vee
-     S^{2}\vee S^{2}\), 1 de \(S^{3}\), una tiene la homología de
-     \(S^{2}\) y otra la de \(S^{2}\vee S^{2}\).
+   - De las 13 restantes, 6 tienen el tipo de homotopía de \(S^{2}\),
+     3 tienen el tipo de \(S^{2}\vee S^{2}\), 1 de \(S^{3}\) y una
+     tiene la homología de \(S^{2}\)
    - Las restantes dos \(G\) son notables, pues son contraíbles, pero
      \(K(G)\) tiene el tipo de \(S^{3}\).
-   - Estos resultados topológicos sugieren fuertemente que las 25
+   - Estos resultados topológicos sugieren fuertemente que las 13
      restantes son divergentes.
   
 ** Gráficas cúbicas disconexas
@@ -627,9 +618,57 @@
      divergente por el teorema de los 3 sumandos.
    - \(\overline{K_{4}}+\overline{H}\), donde \(H\) es conexa cúbica
      con 8 vértices es divergente en los 5 casos.
-   - Sin embargo, \(\overline{K_{3,3}}+\overline{K_{3,3}}\) es
-     convergente. 
+   - \(\overline{T_{3}}+\overline{T_{3}}\) y
+     \(\overline{T_{3}}+\overline{K_{3,3}}\) son divergentes por el
+     teorema del sumando conexo.
+   - Sin embargo, \(\overline{K_{3,3}}+\overline{K_{3,3}}\) *es
+     convergente*.
+   - Es decir, de las 94 gráficas cúbicas conexas con 12 vértices,
+     todo indica que solo una tiene complemento convergente.
 
+** Sin embargo...
+
+   - Hay exactamente 509 gráficas conexas y cúbicas con 14
+     vértices. Pero entre ellas hay al menos 5 con complemento
+     convergente.
+   - Una de ellas:
+     #+attr_latex: :float t :height 5cm
+     [[file:14v-26.png]]
+
+** 16 vértices
+
+   Hay exactamente 4060 gráficas conexas y cúbicas con 16
+   vértices. Pero entre ellas hay al menos una con complemento
+   convergente.
+
+   #+attr_latex: :float t :height 5cm
+   [[file:16v-3277.png]]
+
+** 18 vértices
+
+   - Hay exactamente 41301 gráficas conexas y cúbicas con 18
+     vértices. Entre ellas hay al menos 44 con complemento
+     convergente.
+
+   - Una de ellas:
+     #+attr_latex: :float t :height 5cm
+     [[file:18v-999.png]] 
+
+** 
+
+*** Conjetura
+
+    Para cada \(n\) par, existe una gráfica cúbica \(G\) con \(n\)
+    vértices, tal que \(\overline{G}\) es convergente.
+
+**                                                          :B_ignoreheading:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+\begin{frame}[focus]
+   \huge
+   Gracias
+\end{frame}
 
 * COMMENT Local Variables
 
