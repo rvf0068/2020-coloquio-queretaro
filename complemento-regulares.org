@@ -5,6 +5,9 @@
 #+date: XXXV Coloquio Víctor Neumann-Lara{{{newline}}} de Teoría de las Gráficas, Combinatoria{{{newline}}} y sus Aplicaciones
 #+setupfile: options.org
 
+#+latex_header: \usepackage{fontawesome}
+#+latex_header: \usepackage{FiraMono}
+
 #+latex: \SetVertexNotLabeledSmall
 #+latex: \tikzstyle{EdgeStyle}=[color=white, line width=0.5pt, double=black, double distance=1pt]
 
@@ -720,8 +723,17 @@
    :BEAMER_env: ignoreheading
    :END:
 \begin{frame}[focus]
-   \huge
+   \begin{huge}
    Gracias
+   \end{huge}
+
+  \bigskip
+
+  \begin{large}
+  \faGithub{} \texttt{github.com/rvf0068}
+
+  \faTwitter{} \texttt{@rvf0068}
+  \end{large}
 \end{frame}
 
 
