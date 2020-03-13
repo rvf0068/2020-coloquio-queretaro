@@ -640,12 +640,15 @@
    |     8 |                          6 |                            6 |                           0 |
    |    10 |                         21 |                            4 |                          17 |
 
-   #+beamer: \bigskip\pause
+   #+beamer: \pause
 
-   - De las 17 divergentes, 9 tienen octaedro especial, 3 se retraen a
-     la suspensión de \(C_{5}\), 3 tienen octaedro especial en
-     \(K^{3}(G)\), 1 se retrae a la suspensión de \(C_{6}\) y 1 tiene
-     \(K(G)\) con retracción a \(\overline{C_{10}}\).
+   - De las 21 gráficas cúbicas, 19 son conexas. De las conexas, 16
+     son divergentes y 3 convergentes.
+   - De las 16 divergentes, 9 tienen octaedro especial, 3 se retraen a
+     la suspensión de \(C_{5}\), 1 es tal que \(K(G)\) se retrae no
+     especialmente a \(O_{3}\), 1 es tal que \(K(G)\) se retrae a la
+     suspensión de \(C_{5}\), y 2 tienen octaedro especial en
+     \(K^{3}(G)\).
    - Es notable que podamos determinar el comportamiento de todas.
 
 ** Gráficas cúbicas con 12 vértices
