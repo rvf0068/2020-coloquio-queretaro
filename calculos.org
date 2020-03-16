@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 from networkx.algorithms.operators.unary import complement
 from networkx.algorithms.operators.binary import disjoint_union
 from pycliques.cliques import clique_graph as k
-from pycliques.dominated import has_dominated_vertex, has_s_dismantlable_vertex, has_s_dismantlable_edge, complete_s_collapse, complete_s_collapse_edges
+from pycliques.dominated import has_dominated_vertex, has_s_dismantlable_vertex, \
+    has_s_dismantlable_edge, complete_s_collapse, complete_s_collapse_edges
 from pycliques.dominated import completely_pared_graph as p
 from pycliques.surfaces import is_regular
 from pycliques.helly import is_helly
@@ -18,7 +19,8 @@ from pycliques.named import suspension_of_cycle, complement_of_cycle, octahedron
     graph_suspension
 from pycliques.named import snub_dysphenoid as snubd
 from pycliques.special import special_octahedra
-from pycliques.small import retracts_to_some_suspension_of_cycle, retracts_to_some_complement_of_cycle
+from pycliques.small import retracts_to_some_suspension_of_cycle, \
+    retracts_to_some_complement_of_cycle
 from pycliques.coaffinations import automorphisms, coaffinations
 from pycliques.cutpoints import local_cutpoints, has_local_cutpoints
 
@@ -39,9 +41,9 @@ def is_contractible(g):
     return gap_adyacency_list(evg) == [[]]
 #+end_src
 
-#+RESULTS:
+#+RESULTS[1554aca5f1da9e2af5d30f30a35588e3fbd8cc40]:
 :results:
-# Out[1]:
+# Out[3]:
 :end:
 
 * 4 vértices
