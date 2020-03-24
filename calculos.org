@@ -289,8 +289,8 @@ plt.show()
 [[file:./obipy-resources/j8bRMG.png]]
 :end:
 
-Las gráficas 6 y 10 tienen la misma cantidad de vértices, pero no son
-isomorfas. 
+Las segundas gráficas de clanes de las gráficas 6 y 10 tienen la misma
+cantidad de vértices, pero no son isomorfas.
 
 #+begin_src ipython
 nx.is_isomorphic(k2ccubic[6], k2ccubic[10])
