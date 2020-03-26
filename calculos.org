@@ -55,7 +55,7 @@ len(lista08)
 
 #+RESULTS[a218289cab059982e3a1294ff85723d5d654afb3]:
 :results:
-# Out[48]:
+# Out[16]:
 : 5
 :end:
 
@@ -933,7 +933,7 @@ len(still), k4helly
 *** 4+4+6
 
 Como los complementos de las dos gráficas cúbicas con 6 vértices
-tienen coafinación, las dos son convergentes por el teorema de los
+tienen coafinación, las dos son divergentes por el teorema de los
 tres sumandos
 
 *** 4+10
@@ -1136,6 +1136,326 @@ len(still), k3helly
 # Out[82]:
 : (0, [])
 :end:
+
+*** 6+8
+
+Como una gráfica de 8 vértices tiene complemento conexo, para que se
+pueda aplicar el sumando conexo, al sumarla con el complemento de una
+de 6 vértices (que en los dos casos tiene coafinación), basta con que
+ella tenga coafinación. Ya vimos antes que eso pasa con las cúbicas de
+8 vértices con índices 3,4, por lo que falta checar los índices 0,1,2
+
+#+begin_src ipython
+lista06 = [nx.complete_bipartite_graph(3, 3), complement(nx.cycle_graph(6))]
+cubicas = [disjoint_union(g, h) for g in lista06 for h in lista08[0:3]]
+ccubic = [complement(g) for g in cubicas]
+still = [i for i, g in enumerate(ccubic) if not(is_helly(g))]
+still, len(still)
+#+end_src
+
+#+RESULTS[11b62a00df3e2f2228da3f49cc7852f811fb323c]:
+:results:
+# Out[26]:
+: ([0, 1, 2, 3, 4, 5], 6)
+:end:
+
+#+begin_src ipython
+still = [i for i in still if not special_octahedra(ccubic[i])]
+still, len(still)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[27]:
+: ([0, 1, 2, 3, 4, 5], 6)
+:end:
+
+Wall time: 40.9 s
+
+#+begin_src ipython
+%time still = [i for i in still if not retracts_to(octahedron(3))(ccubic[i])]
+still, len(still)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[28]:
+: ([3, 4, 5], 3)
+:end:
+
+#+begin_src ipython
+plt.figure(figsize=(15,5))
+
+for i in range(3):
+    plt.subplot("13"+str(i+1))
+    plt.title(str([3, 4, 5][i]))
+    nx.draw(complement(ccubic[[3, 4, 5][i]]), with_labels='True')
+
+plt.show()
+#+end_src
+
+#+RESULTS[22c40263108dd9effba4536ac0131e96ef9a1855]:
+:results:
+# Out[46]:
+[[file:./obipy-resources/s1DUKp.png]]
+:end:
+
+#+begin_src ipython
+%time still = [i for i in still if not retracts_to(suspension_of_cycle(5))(ccubic[i])]
+len(still)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[29]:
+: 3
+:end:
+
+#+begin_src ipython
+still = [i for i in still if not retracts_to(suspension_of_cycle(6))(ccubic[i])]
+len(still)
+#+end_src
+
+#+RESULTS[be55f780f28a2dfb86934eb6d1cbeb74c9f17c3d]:
+:results:
+# Out[30]:
+: 3
+:end:
+
+#+begin_src ipython
+still = [i for i in still if not retracts_to(suspension_of_cycle(7))(ccubic[i])]
+len(still)
+#+end_src
+
+#+RESULTS[20069acd4bfdf0ab4efe596a831285fd8101fe98]:
+:results:
+# Out[31]:
+: 3
+:end:
+
+#+begin_src ipython
+still = [i for i in still if not retracts_to(suspension_of_cycle(8))(ccubic[i])]
+len(still)
+#+end_src
+
+#+RESULTS[0d8c5b85cdab851a8eab28ce5368efc6a0c783af]:
+:results:
+# Out[32]:
+: 3
+:end:
+
+ #+begin_src ipython
+%time still = [i for i in still if not retracts_to(complement_of_cycle(8))(ccubic[i])]
+still, len(still)
+#+end_src
+
+#+RESULTS[c965fa0ed5ec3165fad3118894867836c9ea4b34]:
+:results:
+# Out[33]:
+: ([3, 4, 5], 3)
+:end:
+
+#+begin_src ipython
+kccubic = {i: pk(ccubic[i]) for i in still}
+khelly = [i for i in still if is_helly(kccubic[i])]
+still = [i for i in still if not i in khelly]
+len(still), khelly
+#+end_src
+
+#+RESULTS[50677fc6c797c3e218800476f28acc8deb06f82f]:
+:results:
+# Out[34]:
+: (3, [])
+:end:
+
+#+begin_src ipython
+[kccubic[i].order() for i in still]
+#+end_src
+
+#+RESULTS[43aea325bc9cbcb112d0724ab5d1235cdf1c6765]:
+:results:
+# Out[35]:
+: [60, 48, 36]
+:end:
+
+#+begin_src ipython
+still = [3, 4, 5]
+%time k2ccubic = {i: k(kccubic[i], 1000) for i in still}
+%time k2ccubic = {i: p(k2ccubic[i]) for i in still if k2ccubic[i] is not None}
+%time k2helly = [i for i in k2ccubic.keys() if is_helly(k2ccubic[i])]
+still = [i for i in k2ccubic.keys() if not i in k2helly]
+len(still), k2helly
+#+end_src
+
+#+RESULTS[601ae7017b85d646a69f6b660920ac91cbd4923f]:
+:results:
+# Out[42]:
+: (1, [])
+:end:
+
+#+begin_src ipython
+still, [k2ccubic[i].order() for i in still]
+#+end_src
+
+#+RESULTS[f49f9a7842906bd8fe9a37fca5fdecf90d33f384]:
+:results:
+# Out[44]:
+: ([5], [935])
+:end:
+
+
+* 16 vértices
+
+** Conexas
+
+#+begin_src ipython
+lista16 = nx.read_graph6("./cub16.g6")
+len(lista16)
+#+end_src
+
+#+RESULTS[aa977932223e7bd71a05d974481a8d48ead33968]:
+:results:
+# Out[2]:
+: 4060
+:end:
+
+#+begin_src ipython
+%time ccubic = [complement(g) for g in lista16]
+%time still = [i for i, g in enumerate(ccubic) if not is_helly(g)]
+len(still)
+#+end_src
+
+#+RESULTS[bb8b2bd2f6f2347f586b95c9206409ef16296f9a]:
+:results:
+# Out[3]:
+: 4060
+:end:
+
+Wall time: 2min 6s
+
+#+begin_src ipython
+%time still = [i for i in still if not special_octahedra(ccubic[i])]
+len(still)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[4]:
+: 2790
+:end:
+
+Wall time: 4min 11s
+Wall time: 13.1 s
+
+#+begin_src ipython
+%time kccubic = {i: pk(ccubic[i]) for i in still}
+%time khelly = [i for i in still if is_helly(kccubic[i])]
+still = [i for i in still if not i in khelly]
+len(still), khelly
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[5]:
+: (2789, [3277])
+:end:
+
+Hay exactamente una gráfica tal que la de clanes es Helly. De hecho, la
+podada de la gráfica de clanes es la gráfica de un vértice.
+
+#+RESULTS[f8c5acfc089160f6108e9ada659f1856240c042c]:
+:results:
+# Out[6]:
+: (2789, [3277])
+:end:
+
+#+begin_src ipython
+[kccubic[i].order() for i in khelly]
+#+end_src
+
+#+RESULTS[164f94c32d31dec58cc862fb557448d8fca7055c]:
+:results:
+# Out[7]:
+: [1]
+:end:
+
+#+begin_src ipython
+nx.draw(lista16[3277])
+#+end_src
+
+#+RESULTS[d373d640908becac180db0c82ed7fcc92d23b6a6]:
+:results:
+# Out[8]:
+[[file:./obipy-resources/m2KSHA.png]]
+:end:
+
+#+begin_src ipython
+nx.draw(complement(p(complement(lista16[3277]))))
+#+end_src
+
+#+RESULTS[60bd71d4b8995ce227d41438f374a1f473771016]:
+:results:
+# Out[9]:
+[[file:./obipy-resources/3L1hAU.png]]
+:end:
+
+Sólo hay 6 gráficas con segunda gráfica de clanes con hasta 6
+vértices, y ninguna es Helly
+
+Wall time: 26.2 s
+Wall time: 36.3 s
+
+#+begin_src ipython
+%time k2ccubic = {i: k(kccubic[i], 500) for i in still}
+%time k2ccubic = {i: p(k2ccubic[i]) for i in still if k2ccubic[i] is not None}
+k2helly = [i for i in k2ccubic.keys() if is_helly(k2ccubic[i])]
+len(k2helly), len(k2ccubic)
+#+end_src
+
+#+RESULTS[89583d602d4119c75e68a436321b61046ef0274c]:
+:results:
+# Out[7]:
+: (0, 6)
+:end:
+
+#+begin_src ipython
+still = [i for i in k2ccubic.keys() if not i in k2helly]
+len(still), k2helly
+#+end_src
+
+#+RESULTS[11fb8b2aa039f4f5295a3065bff709c513a917c4]:
+:results:
+# Out[10]:
+: (6, [])
+:end:
+
+#+begin_src ipython
+%time k3ccubic = {i: k(k2ccubic[i], 800) for i in still}
+len(k3ccubic)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[11]:
+: 6
+:end:
+
+#+begin_src ipython
+%time k3ccubic = {i: p(k3ccubic[i]) for i in still if k3ccubic[i] is not None}
+k3helly = [i for i in k3ccubic.keys() if is_helly(k3ccubic[i])]
+still = [i for i in k3ccubic.keys() if not i in k3helly]
+len(still), k3helly
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[12]:
+: (0, [])
+:end:
+
+
+
+
 
 * COMMENT Local Variables
 
