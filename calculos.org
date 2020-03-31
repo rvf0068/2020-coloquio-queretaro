@@ -19,10 +19,10 @@ from pycliques.small import *
 from pycliques.coaffinations import *
 from pycliques.cutpoints import *
 
-from comun import pk, gap_adyacency_list, is_contractible
+from comun import pk, gap_adyacency_list, simplify_ht, is_contractible, dong_matching
 #+end_src
 
-#+RESULTS[1554aca5f1da9e2af5d30f30a35588e3fbd8cc40]:
+#+RESULTS[0639de51e90b87163602b20ed59bfa4989340ef2]:
 :results:
 # Out[1]:
 :end:
@@ -55,7 +55,7 @@ len(lista08)
 
 #+RESULTS[a218289cab059982e3a1294ff85723d5d654afb3]:
 :results:
-# Out[16]:
+# Out[2]:
 : 5
 :end:
 
@@ -387,7 +387,7 @@ len(lista12)
 
 #+RESULTS[a95ac0f729bf57b1ad0c945afdeacd3546b96cb6]:
 :results:
-# Out[35]:
+# Out[3]:
 : 85
 :end:
 
@@ -403,7 +403,7 @@ len(still)
 
 #+RESULTS[a39eac8017b2cb0c5c1ce18ab2ca7a3b94267452]:
 :results:
-# Out[36]:
+# Out[4]:
 : 85
 :end:
 
@@ -416,7 +416,7 @@ len(still)
 
 #+RESULTS[e8cab682aa8353a7f3a5d6efea133d951030b160]:
 :results:
-# Out[37]:
+# Out[5]:
 : 45
 :end:
 
@@ -427,7 +427,7 @@ len(still)
 
 #+RESULTS[f0c53e5c21981c34602eec9940fe1ace6528c382]:
 :results:
-# Out[38]:
+# Out[6]:
 : 17
 :end:
 
@@ -438,7 +438,7 @@ len(still)
 
 #+RESULTS[0c51b407332796ae2f8598ce4158cc5514e94b7d]:
 :results:
-# Out[28]:
+# Out[7]:
 : 17
 :end:
 
@@ -507,7 +507,7 @@ retracts, len(still)
 
 #+RESULTS[05f23046ce64cc98c6671808583e35aa0919a092]:
 :results:
-# Out[39]:
+# Out[8]:
 : ([63], 16)
 :end:
 
@@ -543,7 +543,7 @@ still = [i for i in still if not is_helly(kccubic[i])]
 
 #+RESULTS[3828e90ce42d188a3b8d41149e55c8761b3f40f0]:
 :results:
-# Out[42]:
+# Out[9]:
 #+BEGIN_EXAMPLE
   ([(5, 29),
   (20, 30),
@@ -573,8 +573,115 @@ retracts, still, len(still)
 
 #+RESULTS:
 :results:
-# Out[43]:
+# Out[10]:
 : ([20, 67, 69], [5, 22, 34, 39, 43, 47, 54, 64, 75, 76, 80, 81, 83], 13)
+:end:
+
+#+begin_src ipython
+[(i, dong_matching(ccubic[i])) for i in still]
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[9]:
+#+BEGIN_EXAMPLE
+  [(5, {frozenset({2, 7, 9}), frozenset({0}), frozenset({1, 5, 11})}),
+  (22, {frozenset({1, 7, 9}), frozenset({0})}),
+  (34, {frozenset({1, 8, 10}), frozenset({0}), frozenset({1, 8, 11})}),
+  (39, {frozenset({1, 8, 10}), frozenset({0})}),
+  (43,
+  {frozenset({1, 7, 9}),
+  frozenset({2, 4, 10}),
+  frozenset({3, 4, 5, 10}),
+  frozenset({2, 7, 8, 9}),
+  frozenset({3, 4, 5, 11}),
+  frozenset({2, 4, 11}),
+  frozenset({2, 6, 8}),
+  frozenset({0})}),
+  (47,
+  {frozenset({2, 4, 10}),
+  frozenset({2, 7, 8, 10}),
+  frozenset({3, 4, 5, 11}),
+  frozenset({2, 6, 8}),
+  frozenset({0})}),
+  (54,
+  {frozenset({2, 4, 11}),
+  frozenset({2, 6, 8}),
+  frozenset({2, 6, 9, 10}),
+  frozenset({0})}),
+  (64, {frozenset({3, 4, 10}), frozenset({0})}),
+  (75, {frozenset({3, 4, 9, 10}), frozenset({0})}),
+  (76, {frozenset({2, 5, 11}), frozenset({0})}),
+  (80,
+  {frozenset({3, 5, 6, 9}),
+  frozenset({3, 4, 6}),
+  frozenset({1, 10, 11}),
+  frozenset({3, 4, 10, 11}),
+  frozenset({0})}),
+  (81,
+  {frozenset({3, 5, 6, 9}),
+  frozenset({3, 4, 6}),
+  frozenset({1, 10, 11}),
+  frozenset({2, 5, 9}),
+  frozenset({0})}),
+  (83, {frozenset({2, 4, 10}), frozenset({0})})]
+#+END_EXAMPLE
+:end:
+
+#+begin_src ipython
+[(i, dong_matching(simplify_ht(ccubic[i]))) for i in still]
+#+end_src
+
+#+RESULTS[a030d8de86cf08dacac4ef48d36b274c5d7e530d]:
+:results:
+# Out[11]:
+#+BEGIN_EXAMPLE
+  [(5, {frozenset({0}), frozenset({1, 8, 10}), frozenset({3, 8, 10})}),
+  (22,
+  {frozenset({6, 7, 11}),
+  frozenset({5, 6}),
+  frozenset({3}),
+  frozenset({5, 8, 10})}),
+  (34, {frozenset({5, 7, 10}), frozenset({4, 5, 11}), frozenset({2})}),
+  (39, {frozenset({3}), frozenset({7, 8, 9})}),
+  (43,
+  {frozenset({3}), frozenset({4, 11}), frozenset({7, 8, 9}), frozenset({0})}),
+  (47, {frozenset({11})}),
+  (54, {frozenset({5, 8, 11}), frozenset({2})}),
+  (64, {frozenset({5, 7, 9}), frozenset({2})}),
+  (75,
+  {frozenset({3, 4, 6}),
+  frozenset({4, 6, 8, 11}),
+  frozenset({3, 4, 9, 10}),
+  frozenset({0})}),
+  (76, {frozenset({2}), frozenset({6, 8, 11})}),
+  (80, {frozenset({11})}),
+  (81, {frozenset({4, 10, 11}), frozenset({6, 7, 9}), frozenset({2})}),
+  (83,
+  {frozenset({3}), frozenset({9, 11}), frozenset({7, 8, 10}), frozenset({0})})]
+#+END_EXAMPLE
+:end:
+
+Falta determinar el tipo de la 43.
+
+#+begin_src ipython
+simplify_ht(ccubic[81]).order()
+#+end_src
+
+#+RESULTS[1bb483fe407c2628b8ab66527b8e1ac38c4d4bda]:
+:results:
+# Out[16]:
+: 9
+:end:
+
+#+begin_src ipython
+dong_matching(complement_of_cycle(13))
+#+end_src
+
+#+RESULTS[07284341d413a78f6c5f341ab2f85fa52c48b612]:
+:results:
+# Out[23]:
+: set()
 :end:
 
 *** Las segundas de clanes
@@ -738,7 +845,7 @@ len(lista14)
 
 #+RESULTS[a95ac0f729bf57b1ad0c945afdeacd3546b96cb6]:
 :results:
-# Out[58]:
+# Out[2]:
 : 509
 :end:
 
@@ -750,7 +857,7 @@ len(still)
 
 #+RESULTS[124a9ba45ff7ef7e3b1fbcca113c9484efa3bcbc]:
 :results:
-# Out[59]:
+# Out[3]:
 : 509
 :end:
 
@@ -761,9 +868,137 @@ len(still)
 
 #+RESULTS[1f86cee5b1f68bde85f540086bf3fa819dfffb74]:
 :results:
-# Out[60]:
+# Out[4]:
 : 220
 :end:
+
+#+begin_src ipython
+%time contractible = [i for i in still if is_contractible(ccubic[i])]
+contractible, len(contractible)
+#+end_src
+
+#+RESULTS[6d22c39bc1bc669f73e47b833341bbf43d135b07]:
+:results:
+# Out[5]:
+#+BEGIN_EXAMPLE
+  ([26,
+  56,
+  84,
+  112,
+  128,
+  143,
+  155,
+  157,
+  168,
+  181,
+  192,
+  203,
+  209,
+  215,
+  299,
+  355,
+  378,
+  399,
+  404,
+  405,
+  407,
+  414,
+  415,
+  416,
+  447,
+  481,
+  494],
+  27)
+#+END_EXAMPLE
+:end:
+
+#+begin_src ipython
+g = ccubic[112]
+kg = pk(g)
+vkg = simplify_ht(kg)
+kg.order(), vkg.order()
+#+end_src
+
+#+RESULTS[e11ae91bddf3f7d5a823b263ee5440a7749b723b]:
+:results:
+# Out[10]:
+: (34, 17)
+:end:
+
+#+begin_src ipython
+dong_matching(vkg)
+#+end_src
+
+#+RESULTS[796193ccd1a3c8a13bac2345e10b7bbbe8d9af26]:
+:results:
+# Out[11]:
+#+BEGIN_EXAMPLE
+  {frozenset({22, 23, 25, 27, 32, 33}),
+  frozenset({17, 22, 23, 25, 27, 33}),
+  frozenset({0})}
+#+END_EXAMPLE
+:end:
+
+#+begin_src ipython
+g = ccubic[143]
+kg = k(g)
+pkg = p(kg)
+vkg = simplify_ht(pkg)
+kg.order(), pkg.order(), vkg.order()
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[14]:
+: (29, 29, 1)
+:end:
+
+#+begin_src ipython
+k2g = k(kg)
+pk2g = p(k2g)
+vk2g = simplify_ht(pk2g)
+k2g.order(), pk2g.order(), vk2g.order()
+#+end_src
+
+#+RESULTS[e3ceb53257c396a8202f0e425c00c8de29cd321a]:
+:results:
+# Out[16]:
+: (320, 1, 1)
+:end:
+
+#+begin_src ipython
+g = ccubic[181]
+kg = k(g)
+pkg = p(kg)
+vkg = simplify_ht(pkg)
+kg.order(), pkg.order(), vkg.order()
+#+end_src
+
+#+RESULTS[97e19b456ae91d42d2ecec2fc08a86b2b4d1decf]:
+:results:
+# Out[17]:
+: (30, 27, 1)
+:end:
+
+#+begin_src ipython
+k2g = k(kg)
+pk2g = p(k2g)
+vk2g = simplify_ht(pk2g)
+k2g.order(), pk2g.order(), vk2g.order()
+#+end_src
+
+#+RESULTS[e3ceb53257c396a8202f0e425c00c8de29cd321a]:
+:results:
+# Out[18]:
+: (277, 199, 1)
+:end:
+
+
+#+begin_src ipython
+%time kcontractible = {i: pk(ccubic[i]) for i in contractible}
+%time [dong_matching(kcontractible[i]) for i in contractible]
+#+end_src
+
 
 *** Las de clanes
 
@@ -1303,7 +1538,6 @@ still, [k2ccubic[i].order() for i in still]
 : ([5], [935])
 :end:
 
-
 * 16 vértices
 
 ** Conexas
@@ -1453,8 +1687,33 @@ len(still), k3helly
 : (0, [])
 :end:
 
+* 18 vértices
 
+** Conexas
 
+#+begin_src ipython
+lista18 = nx.read_graph6("./cub18.g6")
+len(lista18)
+#+end_src
+
+#+RESULTS[dfc6b4c983615b5ca2e3e6866555ea07e9a8c64a]:
+:results:
+# Out[2]:
+: 41301
+:end:
+
+#+begin_src ipython
+for i, g in enumerate(lista18):
+    print(i, end="")
+    print("\r", end="")
+    if is_helly(complement(g)):
+        print(i, " is Helly")
+#+end_src
+
+#+RESULTS[82aa6e2109605e22b3401ad057f0a4cae2fac848]:
+:results:
+# Out[4]:
+:end:
 
 
 * COMMENT Local Variables
