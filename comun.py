@@ -31,15 +31,17 @@ def is_contractible(g):
 def dong_matching(graph):
     matched = []
     vertices = list(graph.nodes())
-    all_completes = nx.enumerate_all_cliques(graph)
+    all_completes = list(nx.enumerate_all_cliques(graph))
+    all_completes.append([])
     all_completes = set([frozenset(c) for c in all_completes])
     for vertex in vertices:
         neigh = open_neighborhood(graph, vertex)
-        completes = nx.enumerate_all_cliques(neigh)
+        completes = list(nx.enumerate_all_cliques(neigh))
+        completes.append([])
         for complete in completes:
             complete = frozenset(complete)
-            if (complete not in matched) and ((complete | {vertex})
-                                              not in matched):
+            if (complete not in matched) \
+               and (not complete | {vertex} in matched):
                 matched.append(complete)
                 matched.append(complete | {vertex})
     return all_completes - set(matched)
